@@ -14,7 +14,10 @@ const PokemonDetails = () => {
   }
   return (
     <Flex h={'100vh'} bgColor={'rgba(255, 255, 255, 0)'}>
-      <h1>{pokemonData.name}</h1>
+      <h1>
+        {pokemonData.name}
+        {console.log(pokemonData)}
+      </h1>
     </Flex>
   )
 }
