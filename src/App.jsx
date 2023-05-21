@@ -1,71 +1,36 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
+import { SimpleGrid, Button, Flex } from '@chakra-ui/react'
+import useFetch from './hooks/useFetch'
+import PokemonCard from './components/PokemonCard'
 
 const App = () => {
-  const [pokemonList, setPokemonList] = useState([])
-  const [pokemonsDetails, setPokemonDetails] = useState([])
-  const [pokemonToDisplay, setPokemonToDisplay] = useState([])
-  const [page, setPage] = useState(0)
-  const displayPerPage = 20
-
-  useEffect(() => {
-    requestPokemonList()
-  }, [])
-
-  const requestPokemonList = async () => {
-    try {
-      const res = await fetch(
-        'https://pokeapi.co/api/v2/pokemon?limit=100000&offset=0'
-      )
-      const json = await res.json()
-
-      setPokemonList(json.results)
-      requestPokemonDetails(
-        json.results.slice(page * displayPerPage, displayPerPage * (page + 1))
-      )
-      setPage((page) => page + 1)
-    } catch (error) {
-      console.log(error)
-    }
-  }
-
-  const requestPokemonDetails = async (pokemonsUrl) => {
-    try {
-      pokemonsUrl.map(async (item) => {
-        const res = await fetch(item.url)
-        const json = await res.json()
-
-        setPokemonDetails((pokemonsData) => {
-          pokemonsData = [...pokemonsData, json]
-          pokemonsData.sort((a, b) => (a.id > b.id ? 1 : -1))
-          return pokemonsData
-        })
-      })
-    } catch (error) {
-      console.log(error)
-    }
-  }
+  const [status, pokemonList] = useFetch(
+    'https://pokeapi.co/api/v2/pokemon?limit=100000&offset=0'
+  )
+  const [page, setPage] = useState(1)
+  const displayPerPage = 15
 
   const nextPage = () => {
-    setPokemonToDisplay(
-      pokemonList.slice(page * displayPerPage, displayPerPage * (page + 1))
-    )
-    requestPokemonDetails(pokemonToDisplay)
-    setPage((page) => page + 1)
+    setPage(page + 1)
+  }
+
+  if (status === 'loading' || status === 'unloaded') {
+    return <div>Loading....</div>
   }
 
   return (
-    <>
-      <ul>
-        {pokemonsDetails.map((pokemon) => (
-          <li key={pokemon.name} value={pokemon.id}>
-            <p>
-              name: {pokemon.name} ID: {pokemon.id}
-            </p>
-          </li>
+    <Flex wrap={'wrap'} justify={'center'} w={'100%'}>
+      <SimpleGrid columns={[1, 2, 3, 4]}>
+        {pokemonList.results.slice(0, displayPerPage * page).map((pokemon) => (
+          <Flex mx={'2rem'} key={pokemon.url} value={pokemon.name}>
+            <PokemonCard url={pokemon.url} />
+          </Flex>
         ))}
-      </ul>
-      <button onClick={() => nextPage()}>Load more</button>
-    </>
+      </SimpleGrid>
+      <Flex justify={'center'} m={'1.5rem'} mb={'2.5rem'} w={'100%'}>
+        <Button onClick={() => nextPage()}>Load more</Button>
+      </Flex>
+    </Flex>
   )
 }
 

@@ -8,8 +8,10 @@ import {
   RouterProvider,
   Route,
 } from 'react-router-dom'
+import theme from './theme/theme'
 import Root from './routes/root'
 import ErrorPage from './routes/error-page'
+import PokemonDetails from './routes/PokemonDetails'
 import App from './App'
 
 const queryClient = new QueryClient()
@@ -19,15 +21,18 @@ const router = createBrowserRouter(
     <Route path="/" element={<Root />} errorElement={<ErrorPage />}>
       <Route errorElement={<ErrorPage />}>
         <Route index element={<App />} />
+        <Route path="/pokemon/:id" element={<PokemonDetails />} />
       </Route>
     </Route>
   )
 )
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-  <QueryClientProvider client={queryClient}>
-    <ChakraProvider>
-      <RouterProvider router={router} />
-    </ChakraProvider>
-  </QueryClientProvider>
+  <React.StrictMode>
+    <QueryClientProvider client={queryClient}>
+      <ChakraProvider theme={theme}>
+        <RouterProvider router={router} />
+      </ChakraProvider>
+    </QueryClientProvider>
+  </React.StrictMode>
 )
