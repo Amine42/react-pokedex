@@ -1,6 +1,17 @@
 import { extendTheme } from '@chakra-ui/react'
 
 const theme = {
+  styles: {
+    global: {
+      body: {
+        bg: 'linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab)',
+        bgAttachement: 'fixed',
+        bgRepeat: 'no-repeat',
+        minH: '100vh',
+      },
+    },
+  },
+
   colors: {
     fire: '#FDDFDF',
     grass: '#DEFDE0',

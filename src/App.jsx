@@ -18,6 +18,8 @@ const App = () => {
     return <div>Loading....</div>
   }
 
+  document.body.style.background =
+    'linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab)'
   return (
     <Flex wrap={'wrap'} justify={'center'} w={'100%'}>
       <SimpleGrid columns={[1, 2, 3, 4]}>
