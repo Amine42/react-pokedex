@@ -26,7 +26,7 @@ const App = () => {
       <SimpleGrid columns={[1, 2, 3, 4]}>
         {pokemonList.results.slice(0, displayPerPage * page).map((pokemon) => (
           <Flex mx={'2rem'} key={pokemon.url} value={pokemon.name}>
-            <PokemonCard pokemonData={pokemon} url={pokemon.url} />
+            <PokemonCard url={pokemon.url} />
           </Flex>
         ))}
       </SimpleGrid>
