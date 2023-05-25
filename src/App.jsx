@@ -18,6 +18,7 @@ const App = () => {
     return <div>Loading....</div>
   }
 
+  // KAKA KAKA KAKA KAKA KAKA KAKA KAKA KAKA KAKA KAKA KAKA KAKA KAKA KAKA KAKA
   document.body.style.background =
     'linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab)'
   return (
@@ -25,7 +26,7 @@ const App = () => {
       <SimpleGrid columns={[1, 2, 3, 4]}>
         {pokemonList.results.slice(0, displayPerPage * page).map((pokemon) => (
           <Flex mx={'2rem'} key={pokemon.url} value={pokemon.name}>
-            <PokemonCard url={pokemon.url} />
+            <PokemonCard pokemonData={pokemon} url={pokemon.url} />
           </Flex>
         ))}
       </SimpleGrid>

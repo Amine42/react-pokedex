@@ -1,5 +1,4 @@
-import { Flex } from '@chakra-ui/react'
-
+import { Heading, Image, Box, Center, Text } from '@chakra-ui/react'
 import { useParams } from 'react-router-dom'
 import useFetch from '../hooks/useFetch'
 
@@ -38,14 +37,59 @@ const PokemonDetails = () => {
   }, ${
     colors[pokemonData?.types[1]?.type?.name || pokemonData.types[0].type.name]
   })`
+
   return (
     // <Flex minH={'100vh'} bgColor={'rgba(255, 255, 255, 0)'}>
-    <Flex>
-      <h1>
-        {pokemonData.name}
-        {console.log(pokemonData)}
-      </h1>
-    </Flex>
+    <Center w={'100%'}>
+      <Box
+        bg={'white'}
+        textAlign={'center'}
+        borderRadius={'16px'}
+        padding={'3rem'}
+        margin={'3rem 1rem'}
+      >
+        <Heading
+          as="h1"
+          w={'100%'}
+          display={'flex'}
+          justifyContent={'space-between'}
+        >
+          <Text>{pokemonData.name}</Text>
+          <Text>#{pokemonData.id}</Text>
+        </Heading>
+        <Center w={'100%'}>
+          <Image
+            h={'300px'}
+            alt="pokemon image"
+            src={pokemonData.sprites.front_default}
+          />
+        </Center>
+        <Text display={'inline-block'} fontWeight={'bold'}>
+          Type:
+        </Text>
+        <Text
+          display={'inline-block'}
+          m={'0 0.5rem'}
+          bgColor={colors[pokemonData?.types[0]?.type?.name]}
+          padding={'0.3rem 0.7rem'}
+          borderRadius={'0.3rem 0.7rem'}
+          fontWeight={'bold'}
+        >
+          {pokemonData?.types[0]?.type?.name}
+        </Text>
+        {pokemonData?.types[1]?.type?.name && (
+          <Text
+            display={'inline-block'}
+            bgColor={colors[pokemonData?.types[1]?.type?.name]}
+            padding={'0.3rem 0.7rem'}
+            borderRadius={'0.3rem 0.7rem'}
+            fontWeight={'bold'}
+          >
+            {pokemonData?.types[1]?.type?.name}
+          </Text>
+        )}
+      </Box>
+    </Center>
   )
 }
 
