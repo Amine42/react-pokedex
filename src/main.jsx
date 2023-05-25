@@ -11,7 +11,7 @@ import {
 import theme from './theme/theme'
 import Root from './routes/root'
 import ErrorPage from './routes/error-page'
-import PokemonDetails from './routes/PokemonDetails'
+import PokemonDetails from './routes/pokemonDetails'
 import App from './App'
 
 const queryClient = new QueryClient()
