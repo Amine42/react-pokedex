@@ -61,7 +61,10 @@ const PokemonDetails = () => {
           <Image
             h={'300px'}
             alt="pokemon image"
-            src={pokemonData.sprites.front_default}
+            src={`https://assets.pokemon.com/assets/cms2/img/pokedex/full/${String(
+              pokemonData.id
+            ).padStart(3, '0')}.png`}
+            // src={pokemonData.sprites.front_default}
           />
         </Center>
         <Text display={'inline-block'} fontWeight={'bold'}>

@@ -63,6 +63,7 @@ const PokemonCard = ({ url }) => {
               pos: 'absolute',
               top: 5,
               left: 0,
+              // backgroundImage: `url('https://assets.pokemon.com/assets/cms2/img/pokedex/full/.png')`,
               backgroundImage: `url(${pokemonData.sprites.front_default})`,
               filter: 'blur(15px)',
               zIndex: -1,
@@ -75,13 +76,13 @@ const PokemonCard = ({ url }) => {
           >
             <Image
               rounded={'lg'}
-              height={230}
-              width={282}
               objectFit={'cover'}
-              src={pokemonData.sprites.front_default}
+              src={`https://assets.pokemon.com/assets/cms2/img/pokedex/full/${String(
+                pokemonData.id
+              ).padStart(3, '0')}.png`}
             />
           </Box>
-          <Stack pt={10} align={'center'}>
+          <Stack mt={'1rem'} pt={10} align={'center'}>
             <Text
               color={'gray.500'}
               fontSize={'sm'}
