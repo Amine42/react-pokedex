@@ -1,12 +1,16 @@
+import { useState, useEffect } from 'react'
 import { Heading, Image, Box, Center, Text } from '@chakra-ui/react'
 import { useParams } from 'react-router-dom'
-import useFetch from '../hooks/useFetch'
+// import useFetch from '../hooks/useFetch'
 
 const url = 'https://pokeapi.co/api/v2/pokemon/'
 
 const PokemonDetails = () => {
+  const [status, setStatus] = useState('unloaded')
+  const [error, setError] = useState('')
+  const [pokemonData, setPokemonData] = useState([])
   const { id } = useParams()
-  const [status, pokemonData] = useFetch(`${url}${id}/`)
+  // const [status, pokemonData] = useFetch(`${url}${id}/`)
   const colors = {
     fire: '#FDDFDF',
     grass: '#DEFDE0',
@@ -28,9 +32,34 @@ const PokemonDetails = () => {
     ghost: '#735797',
   }
 
+  useEffect(() => {
+    fetchPokemonData(`${url}${id}`)
+  }, [id])
+
+  const fetchPokemonData = async (url) => {
+    setStatus('loading')
+    try {
+      const response = await fetch(url)
+      const data = await response.json()
+      setPokemonData(data)
+      setStatus('loaded')
+    } catch (error) {
+      setError(error)
+      setStatus('loaded')
+    }
+  }
+
   if (status === 'loading' || status === 'unloaded') {
     return <div>Loading....</div>
   }
+
+  if (error) {
+    {
+      console.log(error)
+    }
+    return <h1>ERROR</h1>
+  }
+
   // KAKA KAKA KAKA KAKA KAKA KAKA KAKA KAKA KAKA KAKA KAKA KAKA KAKA KAKA KAKA
   document.body.style.background = `linear-gradient(-45deg, ${
     colors[pokemonData.types[0].type.name]

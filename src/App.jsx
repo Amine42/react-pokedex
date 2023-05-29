@@ -1,7 +1,16 @@
+import useFetch from './hooks/useFetch'
 import PokemonList from './components/PokemonList'
 
 const App = () => {
-  return <PokemonList />
+  const [status, pokemonList] = useFetch(
+    'https://pokeapi.co/api/v2/pokemon?limit=100000&offset=0'
+  )
+
+  if (status === 'loading' || status === 'unloaded') {
+    return <div>Loading....</div>
+  }
+
+  return <PokemonList pokemonList={pokemonList.results} />
 }
 
 export default App
