@@ -10,7 +10,7 @@ const App = () => {
     return <div>Loading....</div>
   }
 
-  return <PokemonList pokemonList={pokemonList.results} />
+  return <PokemonList pokemonList={pokemonList.results.slice(0, 1008)} />
 }
 
 export default App

@@ -54,9 +54,6 @@ const PokemonDetails = () => {
   }
 
   if (error) {
-    {
-      console.log(error)
-    }
     return <h1>ERROR</h1>
   }
 
